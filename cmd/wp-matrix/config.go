@@ -14,7 +14,7 @@ import (
 //nolint:lll
 const defaultTemplate = `
 Status: **{{ .Pipeline.Status }}**<br/>
-Build: [{{ .Repository.Owner }}/{{ .Repository.Name }}]({{ .Repository.Link }}){{ if .Curr.TargetBranch }} ({{ .Curr.TargetBranch }}){{ end }} by {{ .Curr.Author }}<br/>
+Build: [{{ .Repository.Owner }}/{{ .Repository.Name }}]({{ .Pipeline.Link }}){{ if .Curr.TargetBranch }} ({{ .Curr.TargetBranch }}){{ end }} by {{ .Curr.Author }}<br/>
 Message: {{ .Curr.Message }}
 `
 
