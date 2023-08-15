@@ -19,6 +19,7 @@ steps:
         from_secret: matrix_roomid
       username:
         from_secret: matrix_username
+      template: "{{ .Pipeline }} ++ {{ .Repository }} ++ {{ .Curr }}"
     when:
       - status: [success, failure]
 
