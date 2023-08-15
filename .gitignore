@@ -1,6 +1,6 @@
 /dist/
 /release/
-/drone-matrix*
+/wp-matrix*
 
 coverage.out
 CHANGELOG.md

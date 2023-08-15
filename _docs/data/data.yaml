@@ -33,8 +33,11 @@ properties:
 
   - name: template
     description: |
-      Golang template for the message. The [pipeline struct](https://pkg.go.dev/github.com/thegeeklab/drone-plugin-lib/v2/drone#Pipeline)
+      Golang template for the message. The [Metadata struct](https://pkg.go.dev/github.com/thegeeklab/wp-plugin-go/plugin#Metadata)
       is exposed to the template and all fields can be referenced. To extend the functionality, [sprig functions](https://masterminds.github.io/sprig/) can also be used.
-    defaultValue: "Build {{ .Build.Status }} [{{ .Repo.Owner }}/{{ .Repo.Name }}#{{ trunc 8 .Commit.SHA }}]({{ .Build.Link }}) ({{ .Build.Branch }}) by {{ .Commit.Author }}"
+    defaultValue: |
+      Status: **{{ .Pipeline.Status }}**<br/>
+      Build: [{{ .Repository.Owner }}/{{ .Repository.Name }}]({{ .Repository.Link }}){{ if .Repository.Branch }} ({{ .Repository.Branch }}){{ end }} by {{ .Commit.Author }}<br/>
+      Message: {{ .Commit.Message }}
     type: string
     required: false

@@ -7,21 +7,33 @@
 package plugin
 
 import (
-	"github.com/thegeeklab/drone-plugin-lib/v2/drone"
+	wp "github.com/thegeeklab/wp-plugin-go/plugin"
 )
 
-// Plugin implements drone.Plugin to provide the plugin implementation.
+// Plugin implements provide the plugin implementation.
 type Plugin struct {
-	settings Settings
-	pipeline drone.Pipeline
-	network  drone.Network
+	*wp.Plugin
+	Settings *Settings
 }
 
-// New initializes a plugin from the given Settings, Pipeline, and Network.
-func New(settings Settings, pipeline drone.Pipeline, network drone.Network) *Plugin {
-	return &Plugin{
-		settings: settings,
-		pipeline: pipeline,
-		network:  network,
-	}
+// Settings for the plugin.
+type Settings struct {
+	Username    string
+	Password    string
+	UserID      string
+	AccessToken string
+	Homeserver  string
+	RoomID      string
+	Template    string
+}
+
+func New(options wp.Options, settings *Settings) *Plugin {
+	p := &Plugin{}
+
+	options.Execute = p.run
+
+	p.Plugin = wp.New(options)
+	p.Settings = settings
+
+	return p
 }

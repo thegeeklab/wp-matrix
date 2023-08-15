@@ -7,9 +7,16 @@
 package main
 
 import (
-	"github.com/drone-plugins/drone-matrix/plugin"
+	"github.com/thegeeklab/wp-matrix/plugin"
 	"github.com/urfave/cli/v2"
 )
+
+//nolint:lll
+const defaultTemplate = `
+Status: **{{ .Pipeline.Status }}**<br/>
+Build: [{{ .Repository.Owner }}/{{ .Repository.Name }}]({{ .Repository.Link }}){{ if .Curr.TargetBranch }} ({{ .Curr.TargetBranch }}){{ end }} by {{ .Curr.Author }}<br/>
+Message: {{ .Curr.Message }}
+`
 
 // settingsFlags has the cli.Flags for the plugin.Settings.
 func settingsFlags(settings *plugin.Settings, category string) []cli.Flag {
@@ -58,11 +65,10 @@ func settingsFlags(settings *plugin.Settings, category string) []cli.Flag {
 			Category:    category,
 		},
 		&cli.StringFlag{
-			Name:    "template",
-			EnvVars: []string{"PLUGIN_TEMPLATE", "MATRIX_TEMPLATE"},
-			Usage:   "message template",
-			//nolint:lll
-			Value:       "Build {{ .Build.Status }} [{{ .Repo.Owner }}/{{ .Repo.Name }}#{{ trunc 8 .Commit.SHA }}]({{ .Build.Link }}) ({{ .Build.Branch }}) by {{ .Commit.Author }}",
+			Name:        "template",
+			EnvVars:     []string{"PLUGIN_TEMPLATE", "MATRIX_TEMPLATE"},
+			Usage:       "message template",
+			Value:       defaultTemplate,
 			Destination: &settings.Template,
 			Category:    category,
 		},

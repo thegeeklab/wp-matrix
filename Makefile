@@ -3,7 +3,7 @@ GOFUMPT_PACKAGE_VERSION := v0.5.0
 # renovate: datasource=github-releases depName=golangci/golangci-lint
 GOLANGCI_LINT_PACKAGE_VERSION := v1.53.3
 
-EXECUTABLE := drone-matrix
+EXECUTABLE := wp-matrix
 
 DIST := dist
 DIST_DIRS := $(DIST)
@@ -30,8 +30,8 @@ endif
 TAGS ?= netgo
 
 ifndef VERSION
-	ifneq ($(DRONE_TAG),)
-		VERSION ?= $(subst v,,$(DRONE_TAG))
+	ifneq ($(CI_COMMIT_TAG),)
+		VERSION ?= $(subst v,,$(CI_COMMIT_TAG))
 	else
 		VERSION ?= $(shell git rev-parse --short HEAD)
 	endif
