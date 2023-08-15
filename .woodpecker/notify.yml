@@ -9,7 +9,7 @@ runs_on: [success, failure]
 
 steps:
   matrix:
-    image: quay.io/thegeeklab/drone-matrix
+    image: quay.io/thegeeklab/wp-matrix
     settings:
       homeserver:
         from_secret: matrix_homeserver
@@ -17,10 +17,6 @@ steps:
         from_secret: matrix_password
       roomid:
         from_secret: matrix_roomid
-      template: >-
-        Status: **{{ .Build.Status }}**<br/>
-        Build: [{{ .Repo.Owner }}/{{ .Repo.Name }}]({{ .Build.Link }}){{ if .Build.Branch }} ({{ .Build.Branch }}){{ end }} by {{ .Commit.Author }}<br/>
-        Message: {{ .Commit.Message.Title }}
       username:
         from_secret: matrix_username
     when:
