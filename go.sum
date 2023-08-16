@@ -57,14 +57,8 @@ github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
-github.com/thegeeklab/wp-plugin-go v0.2.0 h1:uQzyCNUS2CthdtL5OssprhFKxJoGVyuEXMUNsrKW5Qs=
-github.com/thegeeklab/wp-plugin-go v0.2.0/go.mod h1:7PWAZiTnZ2fAvjsedopQJ6w873KuSxUWsAml1Yib8a0=
 github.com/thegeeklab/wp-plugin-go v0.2.2-0.20230816063606-7c3ed98b566a h1:2SXI3FX9Sf/1LOUKezkBzTYLSzduNTjCspvC8ILqwe4=
 github.com/thegeeklab/wp-plugin-go v0.2.2-0.20230816063606-7c3ed98b566a/go.mod h1:7PWAZiTnZ2fAvjsedopQJ6w873KuSxUWsAml1Yib8a0=
-github.com/thegeeklab/wp-plugin-go v0.2.2-0.20230816083104-032314d414ea h1:T9AOBWIVFO7+jizbgXA1lwYjfM+IKZ6VgApq0PD922M=
-github.com/thegeeklab/wp-plugin-go v0.2.2-0.20230816083104-032314d414ea/go.mod h1:7PWAZiTnZ2fAvjsedopQJ6w873KuSxUWsAml1Yib8a0=
-github.com/thegeeklab/wp-plugin-go v0.2.2-0.20230816085611-e7d536f33852 h1:UQ28aIo6qmBKLob3Q1vW4kizWk85h1RLX8cZo9zX8eo=
-github.com/thegeeklab/wp-plugin-go v0.2.2-0.20230816085611-e7d536f33852/go.mod h1:7PWAZiTnZ2fAvjsedopQJ6w873KuSxUWsAml1Yib8a0=
 github.com/tidwall/gjson v1.14.2/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/gjson v1.14.4 h1:uo0p8EbA09J7RQaflQ1aBRffTR7xedD2bcIVSYxLnkM=
 github.com/tidwall/gjson v1.14.4/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=

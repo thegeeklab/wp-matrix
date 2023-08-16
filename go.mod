@@ -7,7 +7,7 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.25
 	github.com/rs/zerolog v1.30.0
 	github.com/russross/blackfriday/v2 v2.1.0
-	github.com/thegeeklab/wp-plugin-go v0.2.2-0.20230816085611-e7d536f33852
+	github.com/thegeeklab/wp-plugin-go v0.2.2-0.20230816063606-7c3ed98b566a
 	github.com/urfave/cli/v2 v2.25.7
 	maunium.net/go/mautrix v0.15.4
 )
