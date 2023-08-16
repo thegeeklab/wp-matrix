@@ -14,8 +14,8 @@ import (
 //nolint:lll
 const defaultTemplate = `
 Status: **{{ .Pipeline.Status }}**<br/>
-Build: [{{ .Repository.Owner }}/{{ .Repository.Name }}]({{ .Pipeline.Link }}){{ if .Curr.TargetBranch }} ({{ .Curr.TargetBranch }}){{ end }} by {{ .Curr.Author }}<br/>
-Message: {{ .Curr.Message }}
+Build: [{{ .Repository.Slug }}]({{ .Pipeline.URL }}){{ if .Curr.Branch }} ({{ .Curr.Branch }}){{ end }} by {{ .Curr.Author }}<br/>
+Message: {{ .Curr.Message }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}
 `
 
 // settingsFlags has the cli.Flags for the plugin.Settings.
