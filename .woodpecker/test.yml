@@ -7,16 +7,16 @@ when:
 
 steps:
   deps:
-    image: docker.io/library/golang:1.20
+    image: docker.io/library/golang:1.21
     commands:
       - make deps
 
   lint:
-    image: docker.io/library/golang:1.20
+    image: docker.io/library/golang:1.21
     commands:
       - make lint
 
   test:
-    image: docker.io/library/golang:1.20
+    image: docker.io/library/golang:1.21
     commands:
       - make test
