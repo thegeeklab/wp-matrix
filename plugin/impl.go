@@ -17,7 +17,6 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/russross/blackfriday/v2"
 	"github.com/thegeeklab/wp-plugin-go/template"
-	"github.com/urfave/cli/v2"
 	"maunium.net/go/mautrix"
 	"maunium.net/go/mautrix/event"
 	"maunium.net/go/mautrix/id"
@@ -25,10 +24,8 @@ import (
 
 var ErrAuthSourceNotSet = errors.New("either username and password or userid and accesstoken are required")
 
-// Execute provides the implementation of the plugin.
-//
 //nolint:revive
-func (p *Plugin) run(ctx context.Context, cCtx *cli.Context) error {
+func (p *Plugin) run(ctx context.Context) error {
 	if err := p.Validate(); err != nil {
 		return fmt.Errorf("validation failed: %w", err)
 	}
