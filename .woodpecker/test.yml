@@ -6,11 +6,6 @@ when:
       - ${CI_REPO_DEFAULT_BRANCH}
 
 steps:
-  deps:
-    image: docker.io/library/golang:1.21
-    commands:
-      - make deps
-
   lint:
     image: docker.io/library/golang:1.21
     commands:
