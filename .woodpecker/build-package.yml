@@ -13,7 +13,7 @@ steps:
       - make release
 
   executable:
-    image: docker.io/library/alpine
+    image: quay.io/thegeeklab/alpine-tools
     commands:
       - $(find dist/ -executable -type f -iname ${CI_REPO_NAME}-linux-amd64) --help
 
