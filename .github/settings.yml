@@ -1,7 +1,7 @@
 repository:
   name: wp-matrix
   description: Woodpecker CI plugin to send messages to Matrix
-  homepage: https://wp-plugin-index.geekdocs.de/plugins/wp-matrix
+  homepage: https://woodpecker-plugins.geekdocs.de/plugins/wp-matrix
   topics: woodpecker-ci, woodpecker, woodpecker-plugin
 
   private: false
