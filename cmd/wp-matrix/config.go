@@ -15,7 +15,7 @@ import (
 const defaultTemplate = `
 Status: **{{ .Pipeline.Status }}**<br/>
 Build: [{{ .Repository.Slug }}]({{ .Pipeline.URL }}){{ if .Curr.Branch }} ({{ .Curr.Branch }}){{ end }} by {{ .Curr.Author.Name }}<br/>
-Message: {{ .Curr.Message }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}
+Message: {{ .Curr.Title }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}
 `
 
 // settingsFlags has the cli.Flags for the plugin.Settings.
