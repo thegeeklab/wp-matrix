@@ -19,6 +19,12 @@ steps:
       FORCE_COLOR: "true"
       NPM_CONFIG_LOGLEVEL: "error"
 
+  link-validation:
+    image: docker.io/lycheeverse/lychee
+    group: test
+    commands:
+      - lychee --no-progress --format detailed _docs/content README.md
+
   publish:
     image: quay.io/thegeeklab/wp-git-action
     settings:
