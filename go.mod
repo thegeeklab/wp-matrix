@@ -8,7 +8,7 @@ require (
 	github.com/rs/zerolog v1.31.0
 	github.com/russross/blackfriday/v2 v2.1.0
 	github.com/thegeeklab/wp-plugin-go v1.0.2
-	github.com/urfave/cli/v2 v2.25.7
+	github.com/urfave/cli/v2 v2.26.0
 	maunium.net/go/mautrix v0.16.2
 )
 
