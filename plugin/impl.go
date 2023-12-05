@@ -81,7 +81,7 @@ func (p *Plugin) Execute() error {
 	}
 
 	formatted := bluemonday.UGCPolicy().SanitizeBytes([]byte(message))
-	content := format.RenderMarkdown(string(formatted), true, true)
+	content := format.RenderMarkdown(string(formatted), true, false)
 
 	if _, err := client.SendMessageEvent(joined.RoomID, event.EventMessage, content); err != nil {
 		return fmt.Errorf("failed to submit message: %w", err)
