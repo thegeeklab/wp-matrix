@@ -12,13 +12,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/matrix-org/gomatrix"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/rs/zerolog/log"
-	"github.com/russross/blackfriday/v2"
 	"github.com/thegeeklab/wp-plugin-go/template"
 	"maunium.net/go/mautrix"
 	"maunium.net/go/mautrix/event"
+	"maunium.net/go/mautrix/format"
 	"maunium.net/go/mautrix/id"
 )
 
@@ -81,16 +80,8 @@ func (p *Plugin) Execute() error {
 		return fmt.Errorf("failed to render template: %w", err)
 	}
 
-	formatted := bluemonday.UGCPolicy().SanitizeBytes(
-		blackfriday.Run([]byte(message)),
-	)
-
-	content := gomatrix.HTMLMessage{
-		Body:          message,
-		MsgType:       "m.notice",
-		Format:        "org.matrix.custom.html",
-		FormattedBody: string(formatted),
-	}
+	formatted := bluemonday.UGCPolicy().SanitizeBytes([]byte(message))
+	content := format.RenderMarkdown(string(formatted), true, false)
 
 	if _, err := client.SendMessageEvent(joined.RoomID, event.EventMessage, content); err != nil {
 		return fmt.Errorf("failed to submit message: %w", err)
