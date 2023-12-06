@@ -58,8 +58,8 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
-github.com/thegeeklab/wp-plugin-go v1.1.0 h1:NS2y5g0/SyWKgjeGXQy6BDChbajR3OOIOPUAh5BUTAg=
-github.com/thegeeklab/wp-plugin-go v1.1.0/go.mod h1:8DfPtNMelj6rJxBru3r8CAE4PMg6HsbxcRuE2Mu1tpw=
+github.com/thegeeklab/wp-plugin-go v1.2.0 h1:ZvwfIIqT6UlclUhz3IYvHf+Jjam/orCaOgdTO+zbUiI=
+github.com/thegeeklab/wp-plugin-go v1.2.0/go.mod h1:8DfPtNMelj6rJxBru3r8CAE4PMg6HsbxcRuE2Mu1tpw=
 github.com/tidwall/gjson v1.14.2/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/gjson v1.17.0 h1:/Jocvlh98kcTfpN2+JzGQWQcqrPQwDrVEMApx/M5ZwM=
 github.com/tidwall/gjson v1.17.0/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
