@@ -42,7 +42,7 @@ properties:
     type: string
     required: false
 
-  - name: template
+  - name: template_unsafe
     description: |
       By default, raw HTML and potentially dangerous links in the template are not rendered. If you want to use inline HTML, you may need to turn this on.
       In such cases, please ensure that the CI configuration files in the Git repository are protected against malicious changes.
