@@ -11,13 +11,6 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-//nolint:lll
-const defaultTemplate = `
-Status: **{{ .Pipeline.Status }}**<br/>
-Build: [{{ .Repository.Slug }}]({{ .Pipeline.URL }}){{ if .Curr.Branch }} ({{ .Curr.Branch }}){{ end }} by {{ .Curr.Author.Name }}<br/>
-Message: {{ .Curr.Title }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}
-`
-
 // settingsFlags has the cli.Flags for the plugin.Settings.
 func settingsFlags(settings *plugin.Settings, category string) []cli.Flag {
 	return []cli.Flag{
@@ -68,8 +61,15 @@ func settingsFlags(settings *plugin.Settings, category string) []cli.Flag {
 			Name:        "template",
 			EnvVars:     []string{"PLUGIN_TEMPLATE", "MATRIX_TEMPLATE"},
 			Usage:       "message template",
-			Value:       defaultTemplate,
+			Value:       plugin.DefaultMessageTemplate,
 			Destination: &settings.Template,
+			Category:    category,
+		},
+		&cli.BoolFlag{
+			Name:        "template-unsafe",
+			EnvVars:     []string{"PLUGIN_TEMPLATE_UNSAFE", "MATRIX_TEMPLATE_UNSAFE"},
+			Usage:       "render raw HTML and potentially dangerous links in template",
+			Destination: &settings.TemplateUnsafe,
 			Category:    category,
 		},
 	}
