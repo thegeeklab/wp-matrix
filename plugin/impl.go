@@ -10,6 +10,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/microcosm-cc/bluemonday"
@@ -75,13 +76,10 @@ func (p *Plugin) Execute() error {
 		return fmt.Errorf("failed to join room: %w", err)
 	}
 
-	message, err := template.RenderTrim(p.Network.Context, *p.Network.Client, p.Settings.Template, p.Metadata)
+	content, err := p.messageContent(p.Network.Context, *p.Network.Client)
 	if err != nil {
 		return fmt.Errorf("failed to render template: %w", err)
 	}
-
-	formatted := bluemonday.UGCPolicy().SanitizeBytes([]byte(message))
-	content := format.RenderMarkdown(string(formatted), true, false)
 
 	if _, err := client.SendMessageEvent(joined.RoomID, event.EventMessage, content); err != nil {
 		return fmt.Errorf("failed to submit message: %w", err)
@@ -90,6 +88,26 @@ func (p *Plugin) Execute() error {
 	log.Info().Msg("message sent successfully")
 
 	return nil
+}
+
+func (p *Plugin) messageContent(ctx context.Context, client http.Client) (event.MessageEventContent, error) {
+	message, err := template.RenderTrim(ctx, client, p.Settings.Template, p.Metadata)
+	if err != nil {
+		return event.MessageEventContent{}, err
+	}
+
+	content := format.RenderMarkdown(message, true, p.Settings.TemplateUnsafe)
+
+	safeBody := format.HTMLToMarkdown(bluemonday.UGCPolicy().Sanitize(content.FormattedBody))
+	if content.Body != safeBody {
+		content.Body = safeBody
+	}
+
+	if content.FormattedBody != "" {
+		content.FormattedBody = bluemonday.UGCPolicy().Sanitize(content.FormattedBody)
+	}
+
+	return content, nil
 }
 
 func prepend(prefix, input string) string {

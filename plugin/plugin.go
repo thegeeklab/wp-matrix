@@ -10,6 +10,13 @@ import (
 	wp "github.com/thegeeklab/wp-plugin-go/plugin"
 )
 
+//nolint:lll
+const DefaultMessageTemplate = `
+Status: **{{ .Pipeline.Status }}**
+Build: [{{ .Repository.Slug }}]({{ .Pipeline.URL }}){{ if .Curr.Branch }} ({{ .Curr.Branch }}){{ end }} by {{ .Curr.Author.Name }}
+Message: {{ .Curr.Title }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}
+`
+
 // Plugin implements provide the plugin.
 type Plugin struct {
 	*wp.Plugin
@@ -18,13 +25,14 @@ type Plugin struct {
 
 // Settings for the plugin.
 type Settings struct {
-	Username    string
-	Password    string
-	UserID      string
-	AccessToken string
-	Homeserver  string
-	RoomID      string
-	Template    string
+	Username       string
+	Password       string
+	UserID         string
+	AccessToken    string
+	Homeserver     string
+	RoomID         string
+	Template       string
+	TemplateUnsafe bool
 }
 
 func New(options wp.Options, settings *Settings) *Plugin {
