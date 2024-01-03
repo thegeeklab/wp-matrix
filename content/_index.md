@@ -26,7 +26,7 @@ name: default
 
 steps:
 - name: notify
-  image: thegeeklab/matrix
+  image: quay.io/thegeeklab/matrix
   settings:
     homeserver: https://matrix.org
     roomid: abcdefghijklmnopqrstuvwxyz:matrix.org
