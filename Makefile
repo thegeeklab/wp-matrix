@@ -67,6 +67,10 @@ lint: golangci-lint
 generate:
 	$(GO) generate $(GENERATE)
 
+.PHONY: generate-docs
+generate-docs:
+	$(GO) generate ./cmd/$(EXECUTABLE)/flags.go
+
 .PHONY: test
 test:
 	$(GO) run $(GOTESTSUM_PACKAGE) --no-color=false -- -coverprofile=coverage.out $(PACKAGES)

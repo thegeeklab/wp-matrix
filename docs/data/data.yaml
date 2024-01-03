@@ -1,51 +1,67 @@
 ---
 properties:
-  - name: username
-    description: Authentication username. If set, the `password` parameter is required as well.
-    type: string
-    required: false
-
-  - name: password
-    description: Authentication password.
-    type: string
-    required: false
-
-  - name: user_id
-    description: Aauthentication User ID. If set, the `access_token` parameter is required as well.
-    type: string
-    required: false
-
   - name: access_token
-    description: Authentication access token.
+    description: |
+      Authentication access token.
     type: string
     required: false
 
   - name: homeserver
-    description: The Matrix homeserver url to use.
-    defaultValue: https://matrix.org
+    description: |
+      Matrix home server url.
+    type: string
+    defaultvalue: "https://matrix.org"
+    required: false
+
+  - name: password
+    description: |
+      Authentication password.
     type: string
     required: false
 
   - name: roomid
-    description: Room ID to send messages to.
+    description: |
+      Roomid to send messages to.
     type: string
     required: false
 
   - name: template
     description: |
-      Golang template for the message. The [Metadata struct](https://pkg.go.dev/github.com/thegeeklab/wp-plugin-go/plugin#Metadata)
-      is exposed to the template and all fields can be referenced. To extend the functionality, [sprig functions](https://masterminds.github.io/sprig/) can also be used.
-    defaultValue: |
+      Golang template for the message.
+
+      The [Metadata struct](https://pkg.go.dev/github.com/thegeeklab/wp-plugin-go/plugin#Metadata) is exposed
+      to the template and all fields can be referenced. To extend the functionality,
+      [sprig functions](https://masterminds.github.io/sprig/) can also be used.
+    type: string
+    defaultvalue: |
       Status: **{{ .Pipeline.Status }}**
       Build: [{{ .Repository.Slug }}]({{ .Pipeline.URL }}){{ if .Curr.Branch }} ({{ .Curr.Branch }}){{ end }} by {{ .Curr.Author.Name }}
-      Message: {{ .Curr.Message }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}
-    type: string
+      Message: {{ .Curr.Title }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}
     required: false
 
   - name: template_unsafe
     description: |
-      By default, raw HTML and potentially dangerous links in the template are not rendered. If you want to use inline HTML, you may need to turn this on.
-      In such cases, please ensure that the CI configuration files in the Git repository are protected against malicious changes.
-    defaultValue: false
+      Render raw HTML and potentially dangerous links in template.
+
+      By default, raw HTML and potentially dangerous links in the template are not rendered. If inline HTML is used,
+      it may be necessary to activate this option. In such cases, please ensure that the CI configuration files
+      in the git repository are protected against malicious changes.
     type: bool
+    defaultvalue: false
+    required: false
+
+  - name: user_id
+    description: |
+      Authentication user ID.
+
+      If set, the `access_token` parameter is required as well.
+    type: string
+    required: false
+
+  - name: username
+    description: |
+      Authentication username.
+
+      If set, the `password` parameter is required as well.
+    type: string
     required: false

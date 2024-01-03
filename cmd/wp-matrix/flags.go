@@ -12,6 +12,8 @@ import (
 )
 
 // settingsFlags has the cli.Flags for the plugin.Settings.
+//
+//go:generate go run docs.go flags.go
 func settingsFlags(settings *plugin.Settings, category string) []cli.Flag {
 	return []cli.Flag{
 		&cli.StringFlag{
@@ -30,14 +32,14 @@ func settingsFlags(settings *plugin.Settings, category string) []cli.Flag {
 		},
 		&cli.StringFlag{
 			Name:        "userid",
-			EnvVars:     []string{"PLUGIN_USERID,PLUGIN_USER_ID", "MATRIX_USERID", "MATRIX_USER_ID"},
-			Usage:       "authentication user id",
+			EnvVars:     []string{"PLUGIN_USER_ID", "PLUGIN_USERID", "MATRIX_USER_ID", "MATRIX_USERID"},
+			Usage:       "authentication user ID",
 			Destination: &settings.UserID,
 			Category:    category,
 		},
 		&cli.StringFlag{
 			Name:        "accesstoken",
-			EnvVars:     []string{"PLUGIN_ACCESSTOKEN,PLUGIN_ACCESS_TOKEN", "MATRIX_ACCESSTOKEN", "MATRIX_ACCESS_TOKEN"},
+			EnvVars:     []string{"PLUGIN_ACCESS_TOKEN", "PLUGIN_ACCESSTOKEN", "MATRIX_ACCESS_TOKEN", "MATRIX_ACCESSTOKEN"},
 			Usage:       "authentication access token",
 			Destination: &settings.AccessToken,
 			Category:    category,
@@ -60,7 +62,7 @@ func settingsFlags(settings *plugin.Settings, category string) []cli.Flag {
 		&cli.StringFlag{
 			Name:        "template",
 			EnvVars:     []string{"PLUGIN_TEMPLATE", "MATRIX_TEMPLATE"},
-			Usage:       "message template",
+			Usage:       "golang template for the message",
 			Value:       plugin.DefaultMessageTemplate,
 			Destination: &settings.Template,
 			Category:    category,

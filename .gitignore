@@ -1,6 +1,7 @@
 /dist
 /release
 /wp-matrix*
+docs/data/data-raw.yaml
 
 coverage.out
 CHANGELOG.md

@@ -1,0 +1,18 @@
+---
+{{- if .GlobalArgs }}
+properties:
+{{- range $v := .GlobalArgs }}
+  - name: {{ $v.Name }}
+    {{- with $v.Description }}
+    description: |
+      {{ . | ToSentence }}
+    {{- end }}
+    {{- with $v.Type }}
+    type: {{ . }}
+    {{- end }}
+    {{- with $v.Default }}
+    defaultvalue: {{ . }}
+    {{- end }}
+    required: {{ default false $v.Required }}
+{{ end -}}
+{{ end -}}
