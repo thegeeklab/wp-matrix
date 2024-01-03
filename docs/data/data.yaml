@@ -10,7 +10,7 @@ properties:
     description: |
       Matrix home server url.
     type: string
-    defaultvalue: "https://matrix.org"
+    defaultValue: "https://matrix.org"
     required: false
 
   - name: password
@@ -33,7 +33,7 @@ properties:
       to the template and all fields can be referenced. To extend the functionality,
       [sprig functions](https://masterminds.github.io/sprig/) can also be used.
     type: string
-    defaultvalue: |
+    defaultValue: |
       Status: **{{ .Pipeline.Status }}**
       Build: [{{ .Repository.Slug }}]({{ .Pipeline.URL }}){{ if .Curr.Branch }} ({{ .Curr.Branch }}){{ end }} by {{ .Curr.Author.Name }}
       Message: {{ .Curr.Title }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}
@@ -47,7 +47,7 @@ properties:
       it may be necessary to activate this option. In such cases, please ensure that the CI configuration files
       in the git repository are protected against malicious changes.
     type: bool
-    defaultvalue: false
+    defaultValue: false
     required: false
 
   - name: user_id
