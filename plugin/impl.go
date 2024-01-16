@@ -57,13 +57,16 @@ func (p *Plugin) Execute() error {
 	}
 
 	if p.Settings.UserID == "" || p.Settings.AccessToken == "" {
-		_, err := client.Login(&mautrix.ReqLogin{
-			Type:                     "m.login.password",
-			Identifier:               mautrix.UserIdentifier{Type: mautrix.IdentifierTypeUser, User: p.Settings.Username},
-			Password:                 p.Settings.Password,
-			InitialDeviceDisplayName: "Woodpecker CI",
-			StoreCredentials:         true,
-		})
+		_, err := client.Login(
+			p.Network.Context,
+			&mautrix.ReqLogin{
+				Type:                     "m.login.password",
+				Identifier:               mautrix.UserIdentifier{Type: mautrix.IdentifierTypeUser, User: p.Settings.Username},
+				Password:                 p.Settings.Password,
+				InitialDeviceDisplayName: "Woodpecker CI",
+				StoreCredentials:         true,
+			},
+		)
 		if err != nil {
 			return fmt.Errorf("failed to authenticate user: %w", err)
 		}
@@ -71,7 +74,7 @@ func (p *Plugin) Execute() error {
 
 	log.Info().Msg("logged in successfully")
 
-	joined, err := client.JoinRoom(prepend("!", p.Settings.RoomID), "", nil)
+	joined, err := client.JoinRoom(p.Network.Context, prepend("!", p.Settings.RoomID), "", nil)
 	if err != nil {
 		return fmt.Errorf("failed to join room: %w", err)
 	}
@@ -81,7 +84,7 @@ func (p *Plugin) Execute() error {
 		return fmt.Errorf("failed to render template: %w", err)
 	}
 
-	if _, err := client.SendMessageEvent(joined.RoomID, event.EventMessage, content); err != nil {
+	if _, err := client.SendMessageEvent(p.Network.Context, joined.RoomID, event.EventMessage, content); err != nil {
 		return fmt.Errorf("failed to submit message: %w", err)
 	}
 
