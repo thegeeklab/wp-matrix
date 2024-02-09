@@ -44,7 +44,7 @@ func Test_messageContent(t *testing.T) {
 
 	options := wp.Options{
 		Name:    "wp-matrix",
-		Execute: func(ctx context.Context) error { return nil },
+		Execute: func(_ context.Context) error { return nil },
 	}
 
 	p := New(options, &Settings{})
