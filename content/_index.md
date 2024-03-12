@@ -21,17 +21,14 @@ Woodpecker CI plugin to send messages to a Matrix room.
 ## Usage
 
 ```YAML
-kind: pipeline
-name: default
-
 steps:
 - name: notify
   image: quay.io/thegeeklab/matrix
   settings:
     homeserver: https://matrix.org
-    roomid: abcdefghijklmnopqrstuvwxyz:matrix.org
+    roomid: randomstring:matrix.org
     username: octocat
-    password: secret
+    password: random-secret
 ```
 
 ### Parameters
@@ -60,9 +57,9 @@ docker build --file Containerfile.multiarch --tag thegeeklab/wp-matrix .
 
 ```Shell
 docker run --rm \
-  -e PLUGIN_ROOMID=0123456789abcdef:matrix.org \
-  -e PLUGIN_USERNAME=yourbot \
-  -e PLUGIN_PASSWORD=p455w0rd \
+  -e PLUGIN_ROOMID=randomstring:matrix.org \
+  -e PLUGIN_USERNAME=octocat \
+  -e PLUGIN_PASSWORD=random-secret \
   -v $(pwd):/build:z \
   -w /build \
   thegeeklab/wp-matrix
