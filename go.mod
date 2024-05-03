@@ -5,7 +5,7 @@ go 1.22
 require (
 	github.com/microcosm-cc/bluemonday v1.0.26
 	github.com/rs/zerolog v1.32.0
-	github.com/thegeeklab/wp-plugin-go v1.7.1
+	github.com/thegeeklab/wp-plugin-go v1.8.0
 	github.com/urfave/cli/v2 v2.27.2
 	maunium.net/go/mautrix v0.18.1
 )
