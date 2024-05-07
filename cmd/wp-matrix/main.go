@@ -11,7 +11,7 @@ import (
 
 	"github.com/thegeeklab/wp-matrix/plugin"
 
-	wp "github.com/thegeeklab/wp-plugin-go/plugin"
+	wp "github.com/thegeeklab/wp-plugin-go/v2/plugin"
 )
 
 //nolint:gochecknoglobals

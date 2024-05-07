@@ -5,7 +5,7 @@ go 1.22
 require (
 	github.com/microcosm-cc/bluemonday v1.0.26
 	github.com/rs/zerolog v1.32.0
-	github.com/thegeeklab/wp-plugin-go v1.7.1
+	github.com/thegeeklab/wp-plugin-go/v2 v2.3.1
 	github.com/urfave/cli/v2 v2.27.2
 	maunium.net/go/mautrix v0.18.1
 )
@@ -35,9 +35,9 @@ require (
 	github.com/xrash/smetrics v0.0.0-20240312152122-5f08fbb34913 // indirect
 	github.com/yuin/goldmark v1.7.1 // indirect
 	go.mau.fi/util v0.4.2 // indirect
-	golang.org/x/crypto v0.22.0 // indirect
+	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/exp v0.0.0-20240409090435-93d18d7e34b8 // indirect
-	golang.org/x/net v0.24.0 // indirect
-	golang.org/x/sys v0.19.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
+	golang.org/x/sys v0.20.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

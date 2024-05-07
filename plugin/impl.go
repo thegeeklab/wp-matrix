@@ -15,7 +15,7 @@ import (
 
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/rs/zerolog/log"
-	"github.com/thegeeklab/wp-plugin-go/template"
+	"github.com/thegeeklab/wp-plugin-go/v2/template"
 	"maunium.net/go/mautrix"
 	"maunium.net/go/mautrix/event"
 	"maunium.net/go/mautrix/format"
