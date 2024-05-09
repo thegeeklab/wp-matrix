@@ -10,15 +10,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"net/http"
-	"strings"
 
-	"github.com/microcosm-cc/bluemonday"
 	"github.com/rs/zerolog/log"
-	"github.com/thegeeklab/wp-plugin-go/template"
+	"github.com/thegeeklab/wp-plugin-go/v2/template"
 	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/event"
-	"maunium.net/go/mautrix/format"
 	"maunium.net/go/mautrix/id"
 )
 
@@ -49,15 +44,15 @@ func (p *Plugin) Validate() error {
 
 // Execute provides the implementation of the plugin.
 func (p *Plugin) Execute() error {
-	muid := id.NewUserID(prepend("@", p.Settings.UserID), p.Settings.Homeserver)
+	muid := id.NewUserID(EnsurePrefix("@", p.Settings.UserID), p.Settings.Homeserver)
 
-	client, err := mautrix.NewClient(p.Settings.Homeserver, muid, p.Settings.AccessToken)
+	matrix, err := mautrix.NewClient(p.Settings.Homeserver, muid, p.Settings.AccessToken)
 	if err != nil {
 		return fmt.Errorf("failed to initialize client: %w", err)
 	}
 
 	if p.Settings.UserID == "" || p.Settings.AccessToken == "" {
-		_, err := client.Login(
+		_, err := matrix.Login(
 			p.Network.Context,
 			&mautrix.ReqLogin{
 				Type:                     "m.login.password",
@@ -74,18 +69,25 @@ func (p *Plugin) Execute() error {
 
 	log.Info().Msg("logged in successfully")
 
-	joined, err := client.JoinRoom(p.Network.Context, prepend("!", p.Settings.RoomID), "", nil)
+	joinResp, err := matrix.JoinRoom(p.Network.Context, EnsurePrefix("!", p.Settings.RoomID), "", nil)
 	if err != nil {
 		return fmt.Errorf("failed to join room: %w", err)
 	}
 
-	content, err := p.messageContent(p.Network.Context, *p.Network.Client)
+	msg, err := p.CreateMessage()
 	if err != nil {
-		return fmt.Errorf("failed to render template: %w", err)
+		return fmt.Errorf("failed to create message: %w", err)
 	}
 
-	if _, err := client.SendMessageEvent(p.Network.Context, joined.RoomID, event.EventMessage, content); err != nil {
-		return fmt.Errorf("failed to submit message: %w", err)
+	client := NewMatrixClient(matrix)
+	client.Message.Opt = MatrixMessageOpt{
+		RoomID:         joinResp.RoomID,
+		Message:        msg,
+		TemplateUnsafe: p.Settings.TemplateUnsafe,
+	}
+
+	if err := client.Message.Send(p.Network.Context); err != nil {
+		return fmt.Errorf("failed to send message: %w", err)
 	}
 
 	log.Info().Msg("message sent successfully")
@@ -93,34 +95,7 @@ func (p *Plugin) Execute() error {
 	return nil
 }
 
-func (p *Plugin) messageContent(ctx context.Context, client http.Client) (event.MessageEventContent, error) {
-	message, err := template.RenderTrim(ctx, client, p.Settings.Template, p.Metadata)
-	if err != nil {
-		return event.MessageEventContent{}, err
-	}
-
-	content := format.RenderMarkdown(message, true, p.Settings.TemplateUnsafe)
-
-	safeBody := format.HTMLToMarkdown(bluemonday.UGCPolicy().Sanitize(content.FormattedBody))
-	if content.Body != safeBody {
-		content.Body = safeBody
-	}
-
-	if content.FormattedBody != "" {
-		content.FormattedBody = bluemonday.UGCPolicy().Sanitize(content.FormattedBody)
-	}
-
-	return content, nil
-}
-
-func prepend(prefix, input string) string {
-	if strings.TrimSpace(input) == "" {
-		return input
-	}
-
-	if strings.HasPrefix(input, prefix) {
-		return input
-	}
-
-	return prefix + input
+// CreateMessage generates a message string based on the plugin's template and metadata.
+func (p *Plugin) CreateMessage() (string, error) {
+	return template.RenderTrim(p.Network.Context, *p.Network.Client, p.Settings.Template, p.Metadata)
 }
