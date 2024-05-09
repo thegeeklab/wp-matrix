@@ -89,7 +89,7 @@ func TestMatrixMessageSend(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			ctx := context.Background()
-			mockClient := mocks.NewMautrixClient(t)
+			mockClient := mocks.NewMockMautrixClient(t)
 			m := &MatrixMessage{
 				Opt:    tt.messageOpt,
 				client: mockClient,

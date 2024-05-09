@@ -11,8 +11,6 @@ import (
 	"maunium.net/go/mautrix/id"
 )
 
-//go:generate mockery --name=MautrixClient --output=mocks --case=underscore
-
 //nolint:lll
 type MautrixClient interface {
 	SendMessageEvent(ctx context.Context, roomID id.RoomID, eventType event.Type, contentJSON interface{}, extra ...mautrix.ReqSendEvent) (resp *mautrix.RespSendEvent, err error)
