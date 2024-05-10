@@ -27,15 +27,47 @@ type MessageOptions struct {
 	TemplateUnsafe bool
 }
 
-// NewClient creates a new Client instance with the provided mautrix.Client.
-func NewClient(client *mautrix.Client) *Client {
-	return &Client{
-		client: client,
-		Message: &Message{
-			client: client,
-			Opt:    MessageOptions{},
-		},
+// NewClient creates a new Matrix client with the given parameters and joins the specified room.
+// It authenticates the user if the userID and token are not provided, and returns a Client struct
+// that can be used to send messages to the room.
+func NewClient(ctx context.Context, url, roomID, userID, token, username, password string) (*Client, error) {
+	muid := id.NewUserID(EnsurePrefix("@", userID), url)
+
+	c, err := mautrix.NewClient(url, muid, token)
+	if err != nil {
+		return nil, err
 	}
+
+	if userID == "" || token == "" {
+		_, err := c.Login(
+			ctx,
+			&mautrix.ReqLogin{
+				Type:                     "m.login.password",
+				Identifier:               mautrix.UserIdentifier{Type: mautrix.IdentifierTypeUser, User: username},
+				Password:                 password,
+				InitialDeviceDisplayName: "Woodpecker CI",
+				StoreCredentials:         true,
+			},
+		)
+		if err != nil {
+			return nil, fmt.Errorf("failed to authenticate user: %w", err)
+		}
+	}
+
+	joinResp, err := c.JoinRoom(ctx, EnsurePrefix("!", roomID), "", nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to join room: %w", err)
+	}
+
+	return &Client{
+		client: c,
+		Message: &Message{
+			client: c,
+			Opt: MessageOptions{
+				RoomID: joinResp.RoomID,
+			},
+		},
+	}, nil
 }
 
 // Send sends a message to the specified room. It sanitizes the message content
@@ -50,7 +82,7 @@ func (m *Message) Send(ctx context.Context) error {
 
 	_, err := m.client.SendMessageEvent(ctx, m.Opt.RoomID, event.EventMessage, content)
 	if err != nil {
-		return fmt.Errorf("failed to send message: %w", err)
+		return err
 	}
 
 	return nil
