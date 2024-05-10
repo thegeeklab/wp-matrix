@@ -11,7 +11,7 @@ IMPORT := github.com/thegeeklab/$(EXECUTABLE)
 
 GO ?= go
 CWD ?= $(shell pwd)
-PACKAGES ?= $(shell go list ./...)
+PACKAGES ?= $(shell go list ./... | grep -Ev 'mocks')
 SOURCES ?= $(shell find . -name "*.go" -type f)
 
 GOFUMPT_PACKAGE ?= mvdan.cc/gofumpt@$(GOFUMPT_PACKAGE_VERSION)
@@ -19,7 +19,6 @@ GOLANGCI_LINT_PACKAGE ?= github.com/golangci/golangci-lint/cmd/golangci-lint@$(G
 XGO_PACKAGE ?= src.techknowlogick.com/xgo@latest
 GOTESTSUM_PACKAGE ?= gotest.tools/gotestsum@latest
 
-GENERATE ?=
 XGO_VERSION := go-1.22.x
 XGO_TARGETS ?= linux/amd64,linux/arm-6,linux/arm-7,linux/arm64
 
@@ -65,11 +64,7 @@ lint: golangci-lint
 
 .PHONY: generate
 generate:
-	$(GO) generate $(GENERATE)
-
-.PHONY: generate-docs
-generate-docs:
-	$(GO) generate ./cmd/$(EXECUTABLE)/flags.go
+	$(GO) generate $(PACKAGES)
 
 .PHONY: test
 test:

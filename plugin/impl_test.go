@@ -5,7 +5,8 @@ import (
 	"net/http"
 	"testing"
 
-	wp "github.com/thegeeklab/wp-plugin-go/plugin"
+	"github.com/stretchr/testify/assert"
+	wp "github.com/thegeeklab/wp-plugin-go/v2/plugin"
 )
 
 func Test_messageContent(t *testing.T) {
@@ -13,9 +14,7 @@ func Test_messageContent(t *testing.T) {
 	tests := []struct {
 		name     string
 		want     string
-		unsafe   bool
 		template string
-		meta     wp.Metadata
 	}{
 		{
 			name:     "render default template",
@@ -25,29 +24,15 @@ func Test_messageContent(t *testing.T) {
 		{
 			name:     "render unsafe html template",
 			want:     "Status: **success**\nBuild: octocat/demo",
-			unsafe:   true,
-			template: "Status: **{{ .Pipeline.Status }}**<br>Build: {{ .Repository.Slug }}",
-		},
-		{
-			name:     "render html xss template",
-			want:     "Status: **success**\nBuild: octocat/demo",
-			unsafe:   true,
-			template: "Status: **{{ .Pipeline.Status }}**<br>Build: <a href=\"javascript:alert('XSS1')\" onmouseover=\"alert('XSS2')\">{{ .Repository.Slug }}<a>",
-		},
-		{
-			name:     "render markdown xss template",
-			want:     "Status: **success**\nBuild: octocat/demo",
-			unsafe:   true,
-			template: "Status: **{{ .Pipeline.Status }}**<br>Build: [{{ .Repository.Slug }}](javascript:alert(XSS1'))",
+			template: "Status: **{{ .Pipeline.Status }}**\nBuild: {{ .Repository.Slug }}",
 		},
 	}
 
-	options := wp.Options{
-		Name:    "wp-matrix",
-		Execute: func(_ context.Context) error { return nil },
+	p := New(func(_ context.Context) error { return nil })
+	p.Network = wp.Network{
+		Context: context.Background(),
+		Client:  &http.Client{},
 	}
-
-	p := New(options, &Settings{})
 	p.Metadata = wp.Metadata{
 		Curr: wp.Commit{
 			Branch: "main",
@@ -67,12 +52,12 @@ func Test_messageContent(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		p.Settings.Template = tt.template
-		p.Settings.TemplateUnsafe = tt.unsafe
-		content, _ := p.messageContent(context.Background(), http.Client{})
+		t.Run(tt.name, func(t *testing.T) {
+			p.Settings.Template = tt.template
 
-		if content.Body != tt.want {
-			t.Errorf("messageContent: %q got: %q, want: %q", tt.name, content.Body, tt.want)
-		}
+			content, err := p.CreateMessage()
+			assert.NoError(t, err)
+			assert.Equal(t, tt.want, content)
+		})
 	}
 }

@@ -1,0 +1,6 @@
+---
+all: True
+dir: mocks
+outpkg: "mocks"
+packages:
+  github.com/thegeeklab/wp-matrix/plugin:
