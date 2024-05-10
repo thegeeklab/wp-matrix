@@ -74,7 +74,7 @@ type MockAPIClient_SendMessageEvent_Call struct {
 //   - eventType event.Type
 //   - contentJSON interface{}
 //   - extra ...mautrix.ReqSendEvent
-func (_e *MockAPIClient_Expecter) SendMessageEvent(ctx, roomID, eventType, contentJSON interface{}, extra ...interface{}) *MockAPIClient_SendMessageEvent_Call {
+func (_e *MockAPIClient_Expecter) SendMessageEvent(ctx interface{}, roomID interface{}, eventType interface{}, contentJSON interface{}, extra ...interface{}) *MockAPIClient_SendMessageEvent_Call {
 	return &MockAPIClient_SendMessageEvent_Call{Call: _e.mock.On("SendMessageEvent",
 		append([]interface{}{ctx, roomID, eventType, contentJSON}, extra...)...)}
 }
@@ -107,8 +107,7 @@ func (_c *MockAPIClient_SendMessageEvent_Call) RunAndReturn(run func(context.Con
 func NewMockAPIClient(t interface {
 	mock.TestingT
 	Cleanup(func())
-},
-) *MockAPIClient {
+}) *MockAPIClient {
 	mock := &MockAPIClient{}
 	mock.Mock.Test(t)
 
