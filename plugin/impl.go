@@ -12,6 +12,7 @@ import (
 	"fmt"
 
 	"github.com/rs/zerolog/log"
+	"github.com/thegeeklab/wp-matrix/matrix"
 	"github.com/thegeeklab/wp-plugin-go/v2/template"
 	"maunium.net/go/mautrix"
 	"maunium.net/go/mautrix/id"
@@ -46,13 +47,13 @@ func (p *Plugin) Validate() error {
 func (p *Plugin) Execute() error {
 	muid := id.NewUserID(EnsurePrefix("@", p.Settings.UserID), p.Settings.Homeserver)
 
-	matrix, err := mautrix.NewClient(p.Settings.Homeserver, muid, p.Settings.AccessToken)
+	mc, err := mautrix.NewClient(p.Settings.Homeserver, muid, p.Settings.AccessToken)
 	if err != nil {
 		return fmt.Errorf("failed to initialize client: %w", err)
 	}
 
 	if p.Settings.UserID == "" || p.Settings.AccessToken == "" {
-		_, err := matrix.Login(
+		_, err := mc.Login(
 			p.Network.Context,
 			&mautrix.ReqLogin{
 				Type:                     "m.login.password",
@@ -69,7 +70,7 @@ func (p *Plugin) Execute() error {
 
 	log.Info().Msg("logged in successfully")
 
-	joinResp, err := matrix.JoinRoom(p.Network.Context, EnsurePrefix("!", p.Settings.RoomID), "", nil)
+	joinResp, err := mc.JoinRoom(p.Network.Context, EnsurePrefix("!", p.Settings.RoomID), "", nil)
 	if err != nil {
 		return fmt.Errorf("failed to join room: %w", err)
 	}
@@ -79,8 +80,8 @@ func (p *Plugin) Execute() error {
 		return fmt.Errorf("failed to create message: %w", err)
 	}
 
-	client := NewMatrixClient(matrix)
-	client.Message.Opt = MatrixMessageOpt{
+	client := matrix.NewClient(mc)
+	client.Message.Opt = matrix.MessageOptions{
 		RoomID:         joinResp.RoomID,
 		Message:        msg,
 		TemplateUnsafe: p.Settings.TemplateUnsafe,

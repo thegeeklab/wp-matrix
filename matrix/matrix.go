@@ -1,4 +1,4 @@
-package plugin
+package matrix
 
 import (
 	"context"
@@ -11,41 +11,36 @@ import (
 	"maunium.net/go/mautrix/id"
 )
 
-//nolint:lll
-type IMatrixClient interface {
-	SendMessageEvent(ctx context.Context, roomID id.RoomID, eventType event.Type, contentJSON interface{}, extra ...mautrix.ReqSendEvent) (resp *mautrix.RespSendEvent, err error)
+type Client struct {
+	client  APIClient
+	Message *Message
 }
 
-type MatrixClient struct {
-	client  IMatrixClient
-	Message *MatrixMessage
+type Message struct {
+	client APIClient
+	Opt    MessageOptions
 }
 
-type MatrixMessage struct {
-	client IMatrixClient
-	Opt    MatrixMessageOpt
-}
-
-type MatrixMessageOpt struct {
+type MessageOptions struct {
 	RoomID         id.RoomID
 	Message        string
 	TemplateUnsafe bool
 }
 
-// NewMatrixClient creates a new MatrixClient instance with the provided mautrix.Client.
-func NewMatrixClient(client *mautrix.Client) *MatrixClient {
-	return &MatrixClient{
+// NewClient creates a new Client instance with the provided mautrix.Client.
+func NewClient(client *mautrix.Client) *Client {
+	return &Client{
 		client: client,
-		Message: &MatrixMessage{
+		Message: &Message{
 			client: client,
-			Opt:    MatrixMessageOpt{},
+			Opt:    MessageOptions{},
 		},
 	}
 }
 
 // Send sends a message to the specified room. It sanitizes the message content
 // to remove potentially unsafe HTML.
-func (m *MatrixMessage) Send(ctx context.Context) error {
+func (m *Message) Send(ctx context.Context) error {
 	content := format.RenderMarkdown(m.Opt.Message, true, m.Opt.TemplateUnsafe)
 
 	if content.FormattedBody != "" {

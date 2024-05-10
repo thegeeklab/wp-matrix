@@ -1,6 +1,6 @@
 ---
 all: True
-dir: mocks
+dir: "{{.PackageName}}/mocks"
 outpkg: "mocks"
 packages:
-  github.com/thegeeklab/wp-matrix/plugin:
+  github.com/thegeeklab/wp-matrix/matrix:
