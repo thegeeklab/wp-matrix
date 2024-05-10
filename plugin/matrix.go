@@ -12,17 +12,17 @@ import (
 )
 
 //nolint:lll
-type MautrixClient interface {
+type IMatrixClient interface {
 	SendMessageEvent(ctx context.Context, roomID id.RoomID, eventType event.Type, contentJSON interface{}, extra ...mautrix.ReqSendEvent) (resp *mautrix.RespSendEvent, err error)
 }
 
 type MatrixClient struct {
-	client  MautrixClient
+	client  IMatrixClient
 	Message *MatrixMessage
 }
 
 type MatrixMessage struct {
-	client MautrixClient
+	client IMatrixClient
 	Opt    MatrixMessageOpt
 }
 
