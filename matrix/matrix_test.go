@@ -1,4 +1,4 @@
-package plugin
+package matrix
 
 import (
 	"context"
@@ -6,21 +6,21 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"github.com/thegeeklab/wp-matrix/plugin/mocks"
+	"github.com/thegeeklab/wp-matrix/matrix/mocks"
 	"maunium.net/go/mautrix"
 	"maunium.net/go/mautrix/event"
 )
 
-func TestMatrixMessageSend(t *testing.T) {
+func TestMessageSend(t *testing.T) {
 	tests := []struct {
 		name       string
-		messageOpt MatrixMessageOpt
+		messageOpt MessageOptions
 		want       event.MessageEventContent
 		wantErr    bool
 	}{
 		{
 			name: "plain text message",
-			messageOpt: MatrixMessageOpt{
+			messageOpt: MessageOptions{
 				RoomID:  "test-room",
 				Message: "hello world",
 			},
@@ -31,7 +31,7 @@ func TestMatrixMessageSend(t *testing.T) {
 		},
 		{
 			name: "markdown message",
-			messageOpt: MatrixMessageOpt{
+			messageOpt: MessageOptions{
 				RoomID:  "test-room",
 				Message: "**hello world**",
 			},
@@ -44,7 +44,7 @@ func TestMatrixMessageSend(t *testing.T) {
 		},
 		{
 			name: "html message",
-			messageOpt: MatrixMessageOpt{
+			messageOpt: MessageOptions{
 				RoomID:         "test-room",
 				Message:        "hello<br>world",
 				TemplateUnsafe: true,
@@ -58,7 +58,7 @@ func TestMatrixMessageSend(t *testing.T) {
 		},
 		{
 			name: "safe html message",
-			messageOpt: MatrixMessageOpt{
+			messageOpt: MessageOptions{
 				RoomID:         "test-room",
 				Message:        "hello world<script>alert('XSS')</script>",
 				TemplateUnsafe: false,
@@ -72,7 +72,7 @@ func TestMatrixMessageSend(t *testing.T) {
 		},
 		{
 			name: "unsafe html message",
-			messageOpt: MatrixMessageOpt{
+			messageOpt: MessageOptions{
 				RoomID:         "test-room",
 				Message:        "hello world<script>alert('XSS')</script>",
 				TemplateUnsafe: true,
@@ -89,8 +89,8 @@ func TestMatrixMessageSend(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			ctx := context.Background()
-			mockClient := mocks.NewMockMautrixClient(t)
-			m := &MatrixMessage{
+			mockClient := mocks.NewMockAPIClient(t)
+			m := &Message{
 				Opt:    tt.messageOpt,
 				client: mockClient,
 			}

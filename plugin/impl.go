@@ -12,9 +12,8 @@ import (
 	"fmt"
 
 	"github.com/rs/zerolog/log"
+	"github.com/thegeeklab/wp-matrix/matrix"
 	"github.com/thegeeklab/wp-plugin-go/v2/template"
-	"maunium.net/go/mautrix"
-	"maunium.net/go/mautrix/id"
 )
 
 var ErrAuthSourceNotSet = errors.New("either username and password or userid and accesstoken are required")
@@ -44,44 +43,26 @@ func (p *Plugin) Validate() error {
 
 // Execute provides the implementation of the plugin.
 func (p *Plugin) Execute() error {
-	muid := id.NewUserID(EnsurePrefix("@", p.Settings.UserID), p.Settings.Homeserver)
-
-	matrix, err := mautrix.NewClient(p.Settings.Homeserver, muid, p.Settings.AccessToken)
-	if err != nil {
-		return fmt.Errorf("failed to initialize client: %w", err)
-	}
-
-	if p.Settings.UserID == "" || p.Settings.AccessToken == "" {
-		_, err := matrix.Login(
-			p.Network.Context,
-			&mautrix.ReqLogin{
-				Type:                     "m.login.password",
-				Identifier:               mautrix.UserIdentifier{Type: mautrix.IdentifierTypeUser, User: p.Settings.Username},
-				Password:                 p.Settings.Password,
-				InitialDeviceDisplayName: "Woodpecker CI",
-				StoreCredentials:         true,
-			},
-		)
-		if err != nil {
-			return fmt.Errorf("failed to authenticate user: %w", err)
-		}
-	}
-
-	log.Info().Msg("logged in successfully")
-
-	joinResp, err := matrix.JoinRoom(p.Network.Context, EnsurePrefix("!", p.Settings.RoomID), "", nil)
-	if err != nil {
-		return fmt.Errorf("failed to join room: %w", err)
-	}
-
 	msg, err := p.CreateMessage()
 	if err != nil {
 		return fmt.Errorf("failed to create message: %w", err)
 	}
 
-	client := NewMatrixClient(matrix)
-	client.Message.Opt = MatrixMessageOpt{
-		RoomID:         joinResp.RoomID,
+	client, err := matrix.NewClient(
+		p.Network.Context,
+		p.Settings.Homeserver,
+		p.Settings.RoomID,
+		p.Settings.UserID,
+		p.Settings.AccessToken,
+		p.Settings.Username,
+		p.Settings.Password,
+	)
+	if err != nil {
+		return fmt.Errorf("failed to initialize client: %w", err)
+	}
+
+	client.Message.Opt = matrix.MessageOptions{
+		RoomID:         client.Message.Opt.RoomID,
 		Message:        msg,
 		TemplateUnsafe: p.Settings.TemplateUnsafe,
 	}

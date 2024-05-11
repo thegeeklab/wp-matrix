@@ -11,13 +11,14 @@ IMPORT := github.com/thegeeklab/$(EXECUTABLE)
 
 GO ?= go
 CWD ?= $(shell pwd)
-PACKAGES ?= $(shell go list ./... | grep -Ev 'mocks')
+PACKAGES ?= $(shell go list ./... | grep -Ev '/mocks$$')
 SOURCES ?= $(shell find . -name "*.go" -type f)
 
 GOFUMPT_PACKAGE ?= mvdan.cc/gofumpt@$(GOFUMPT_PACKAGE_VERSION)
 GOLANGCI_LINT_PACKAGE ?= github.com/golangci/golangci-lint/cmd/golangci-lint@$(GOLANGCI_LINT_PACKAGE_VERSION)
 XGO_PACKAGE ?= src.techknowlogick.com/xgo@latest
 GOTESTSUM_PACKAGE ?= gotest.tools/gotestsum@latest
+MOCKERY_PACKAGE ?= github.com/vektra/mockery/v2@latest
 
 XGO_VERSION := go-1.22.x
 XGO_TARGETS ?= linux/amd64,linux/arm-6,linux/arm-7,linux/arm64
@@ -65,6 +66,7 @@ lint: golangci-lint
 .PHONY: generate
 generate:
 	$(GO) generate $(PACKAGES)
+	$(GO) run $(MOCKERY_PACKAGE)
 
 .PHONY: test
 test:
