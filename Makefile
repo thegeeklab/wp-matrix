@@ -11,7 +11,7 @@ IMPORT := github.com/thegeeklab/$(EXECUTABLE)
 
 GO ?= go
 CWD ?= $(shell pwd)
-PACKAGES ?= $(shell go list ./... | grep -Ev '/mocks$$')
+PACKAGES ?= $(shell go list ./...)
 SOURCES ?= $(shell find . -name "*.go" -type f)
 
 GOFUMPT_PACKAGE ?= mvdan.cc/gofumpt@$(GOFUMPT_PACKAGE_VERSION)
