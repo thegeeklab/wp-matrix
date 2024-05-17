@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	wp "github.com/thegeeklab/wp-plugin-go/v2/plugin"
+	plugin_base "github.com/thegeeklab/wp-plugin-go/v3/plugin"
 )
 
 func Test_messageContent(t *testing.T) {
@@ -29,24 +29,24 @@ func Test_messageContent(t *testing.T) {
 	}
 
 	p := New(func(_ context.Context) error { return nil })
-	p.Network = wp.Network{
+	p.Network = plugin_base.Network{
 		Context: context.Background(),
 		Client:  &http.Client{},
 	}
-	p.Metadata = wp.Metadata{
-		Curr: wp.Commit{
+	p.Metadata = plugin_base.Metadata{
+		Curr: plugin_base.Commit{
 			Branch: "main",
 			Title:  "feat: demo commit title",
 			URL:    "https://git.example.com",
-			Author: wp.Author{
+			Author: plugin_base.Author{
 				Name: "octobot",
 			},
 		},
-		Pipeline: wp.Pipeline{
+		Pipeline: plugin_base.Pipeline{
 			Status: "success",
 			URL:    "https://ci.example.com",
 		},
-		Repository: wp.Repository{
+		Repository: plugin_base.Repository{
 			Slug: "octocat/demo",
 		},
 	}
