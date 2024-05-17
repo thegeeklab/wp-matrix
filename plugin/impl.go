@@ -13,7 +13,7 @@ import (
 
 	"github.com/rs/zerolog/log"
 	"github.com/thegeeklab/wp-matrix/matrix"
-	"github.com/thegeeklab/wp-plugin-go/v2/template"
+	"github.com/thegeeklab/wp-plugin-go/v3/template"
 )
 
 var ErrAuthSourceNotSet = errors.New("either username and password or userid and accesstoken are required")

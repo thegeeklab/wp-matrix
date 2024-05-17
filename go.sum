@@ -62,6 +62,8 @@ github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsT
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 github.com/thegeeklab/wp-plugin-go/v2 v2.3.1 h1:ARwYgTPZ5iPsmOenmqcCf8TjiEe8wBOHKO7H/Xshe48=
 github.com/thegeeklab/wp-plugin-go/v2 v2.3.1/go.mod h1:0t8M8txtEFiaB6RqLX8vLrxkqAo5FT5Hx7dztN592D4=
+github.com/thegeeklab/wp-plugin-go/v3 v3.0.2 h1:Mv5i8S1WY+BUNjTjX6lOnB3p8S9mvM+XwfY4R98gx0g=
+github.com/thegeeklab/wp-plugin-go/v3 v3.0.2/go.mod h1:ij1iJcAVgzerBTqXnmq0bu1VA+hhVVwzXKqiqfoGjjg=
 github.com/tidwall/gjson v1.14.2/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/gjson v1.17.1 h1:wlYEnwqAHgzmhNUFfw7Xalt2JzQvsMx2Se4PcoFCT/U=
 github.com/tidwall/gjson v1.17.1/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
