@@ -13,7 +13,7 @@ import (
 
 	"github.com/rs/zerolog/log"
 	"github.com/thegeeklab/wp-matrix/matrix"
-	"github.com/thegeeklab/wp-plugin-go/v2/template"
+	plugin_template "github.com/thegeeklab/wp-plugin-go/v3/template"
 )
 
 var ErrAuthSourceNotSet = errors.New("either username and password or userid and accesstoken are required")
@@ -78,5 +78,5 @@ func (p *Plugin) Execute() error {
 
 // CreateMessage generates a message string based on the plugin's template and metadata.
 func (p *Plugin) CreateMessage() (string, error) {
-	return template.RenderTrim(p.Network.Context, *p.Network.Client, p.Settings.Template, p.Metadata)
+	return plugin_template.RenderTrim(p.Network.Context, *p.Network.Client, p.Settings.Template, p.Metadata)
 }
