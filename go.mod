@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/microcosm-cc/bluemonday v1.0.26
-	github.com/rs/zerolog v1.32.0
+	github.com/rs/zerolog v1.33.0
 	github.com/stretchr/testify v1.9.0
 	github.com/thegeeklab/wp-plugin-go/v3 v3.0.2
 	github.com/urfave/cli/v2 v2.27.2
