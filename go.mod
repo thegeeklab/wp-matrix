@@ -3,7 +3,7 @@ module github.com/thegeeklab/wp-matrix
 go 1.22
 
 require (
-	github.com/microcosm-cc/bluemonday v1.0.26
+	github.com/microcosm-cc/bluemonday v1.0.27
 	github.com/rs/zerolog v1.33.0
 	github.com/stretchr/testify v1.9.0
 	github.com/thegeeklab/wp-plugin-go/v3 v3.0.3
@@ -19,7 +19,7 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/google/uuid v1.3.0 // indirect
-	github.com/gorilla/css v1.0.0 // indirect
+	github.com/gorilla/css v1.0.1 // indirect
 	github.com/huandu/xstrings v1.3.3 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
