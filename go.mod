@@ -8,7 +8,7 @@ require (
 	github.com/stretchr/testify v1.9.0
 	github.com/thegeeklab/wp-plugin-go/v3 v3.0.4
 	github.com/urfave/cli/v2 v2.27.2
-	maunium.net/go/mautrix v0.18.1
+	maunium.net/go/mautrix v0.19.0
 )
 
 require (
@@ -37,10 +37,10 @@ require (
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/tidwall/sjson v1.2.5 // indirect
 	github.com/xrash/smetrics v0.0.0-20240312152122-5f08fbb34913 // indirect
-	github.com/yuin/goldmark v1.7.1 // indirect
-	go.mau.fi/util v0.4.2 // indirect
+	github.com/yuin/goldmark v1.7.4 // indirect
+	go.mau.fi/util v0.6.0 // indirect
 	golang.org/x/crypto v0.25.0 // indirect
-	golang.org/x/exp v0.0.0-20240409090435-93d18d7e34b8 // indirect
+	golang.org/x/exp v0.0.0-20240707233637-46b078467d37 // indirect
 	golang.org/x/net v0.27.0 // indirect
 	golang.org/x/sys v0.22.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
