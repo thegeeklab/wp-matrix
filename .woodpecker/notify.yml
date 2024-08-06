@@ -15,8 +15,8 @@ steps:
         from_secret: matrix_homeserver
       password:
         from_secret: matrix_password
-      roomid:
-        from_secret: matrix_roomid
+      room_id:
+        from_secret: matrix_room_id
       username:
         from_secret: matrix_username
     when:

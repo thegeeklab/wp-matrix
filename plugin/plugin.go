@@ -110,9 +110,9 @@ func Flags(settings *Settings, category string) []cli.Flag {
 			Category:    category,
 		},
 		&cli.StringFlag{
-			Name:        "roomid",
-			EnvVars:     []string{"PLUGIN_ROOMID", "MATRIX_ROOMID"},
-			Usage:       "roomid to send messages to",
+			Name:        "room_id",
+			EnvVars:     []string{"PLUGIN_ROOM_ID", "PLUGIN_ROOMID", "MATRIX_ROOMID", "MATRIX_ROOM_ID"},
+			Usage:       "room id to send messages to",
 			Destination: &settings.RoomID,
 			Category:    category,
 		},
