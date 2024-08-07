@@ -13,12 +13,12 @@ steps:
     settings:
       homeserver:
         from_secret: matrix_homeserver
-      password:
-        from_secret: matrix_password
       room_id:
         from_secret: matrix_room_id
-      username:
-        from_secret: matrix_username
+      user_id:
+        from_secret: matrix_user_id
+      access_token:
+        from_secret: matrix_access_token
     when:
       - status: [success, failure]
 
