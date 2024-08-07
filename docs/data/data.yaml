@@ -33,9 +33,9 @@ properties:
     type: string
     required: false
 
-  - name: roomid
+  - name: room_id
     description: |
-      Roomid to send messages to.
+      Room ID to send messages to.
     type: string
     required: false
 

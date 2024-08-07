@@ -26,7 +26,7 @@ steps:
   image: quay.io/thegeeklab/matrix
   settings:
     homeserver: https://matrix.org
-    roomid: randomstring:matrix.org
+    room_id: randomstring:matrix.org
     username: octocat
     password: random-secret
 ```
@@ -57,7 +57,7 @@ docker build --file Containerfile.multiarch --tag thegeeklab/wp-matrix .
 
 ```Shell
 docker run --rm \
-  -e PLUGIN_ROOMID=randomstring:matrix.org \
+  -e PLUGIN_ROOM_ID=randomstring:matrix.org \
   -e PLUGIN_USERNAME=octocat \
   -e PLUGIN_PASSWORD=random-secret \
   -v $(pwd):/build:z \
