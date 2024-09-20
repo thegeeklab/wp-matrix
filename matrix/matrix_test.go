@@ -96,7 +96,12 @@ func TestMessageSend(t *testing.T) {
 			}
 
 			mockClient.
-				On("SendMessageEvent", mock.Anything, tt.messageOpt.RoomID, event.EventMessage, tt.want).
+				On("SendMessageEvent", mock.Anything, tt.messageOpt.RoomID, event.EventMessage,
+					mock.MatchedBy(func(content event.MessageEventContent) bool {
+						tt.want.Mentions = &event.Mentions{}
+
+						return assert.EqualValues(t, tt.want, content)
+					})).
 				Return(&mautrix.RespSendEvent{}, nil)
 
 			err := m.Send(ctx)
