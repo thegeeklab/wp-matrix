@@ -1,6 +1,6 @@
 module github.com/thegeeklab/wp-matrix
 
-go 1.23.2
+go 1.23.3
 
 require (
 	github.com/microcosm-cc/bluemonday v1.0.27
