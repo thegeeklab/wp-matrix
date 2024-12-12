@@ -11,8 +11,6 @@ require (
 	maunium.net/go/mautrix v0.22.0
 )
 
-require github.com/thegeeklab/wp-plugin-go/v3 v3.0.9
-
 require (
 	dario.cat/mergo v1.0.1 // indirect
 	filippo.io/edwards25519 v1.1.0 // indirect
