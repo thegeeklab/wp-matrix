@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/thegeeklab/wp-matrix/plugin"
-	plugin_docs "github.com/thegeeklab/wp-plugin-go/v3/docs"
-	plugin_template "github.com/thegeeklab/wp-plugin-go/v3/template"
+	plugin_docs "github.com/thegeeklab/wp-plugin-go/v4/docs"
+	plugin_template "github.com/thegeeklab/wp-plugin-go/v4/template"
 )
 
 func main() {
