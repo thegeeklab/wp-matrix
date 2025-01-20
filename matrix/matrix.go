@@ -54,7 +54,7 @@ func NewClient(ctx context.Context, url, roomID, userID, token, username, passwo
 		}
 	}
 
-	joinResp, err := c.JoinRoom(ctx, EnsurePrefix("!", roomID), "", nil)
+	joinResp, err := c.JoinRoom(ctx, EnsurePrefix("!", roomID), nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to join room: %w", err)
 	}
