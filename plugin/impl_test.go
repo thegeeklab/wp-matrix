@@ -30,7 +30,7 @@ func Test_messageContent(t *testing.T) {
 
 	p := New(func(_ context.Context) error { return nil })
 	p.Network = plugin_base.Network{
-		Context: context.Background(),
+		Context: t.Context(),
 		Client:  &http.Client{},
 	}
 	p.Metadata = plugin_base.Metadata{
