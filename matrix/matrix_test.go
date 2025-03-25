@@ -1,7 +1,6 @@
 package matrix
 
 import (
-	"context"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -88,7 +87,6 @@ func TestMessageSend(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ctx := context.Background()
 			mockClient := mocks.NewMockAPIClient(t)
 			m := &Message{
 				Opt:    tt.messageOpt,
@@ -104,7 +102,7 @@ func TestMessageSend(t *testing.T) {
 					})).
 				Return(&mautrix.RespSendEvent{}, nil)
 
-			err := m.Send(ctx)
+			err := m.Send(t.Context())
 			assert.Equal(t, tt.wantErr, err != nil)
 		})
 	}
