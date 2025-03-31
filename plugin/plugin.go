@@ -10,7 +10,7 @@ import (
 	"fmt"
 
 	plugin_base "github.com/thegeeklab/wp-plugin-go/v4/plugin"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
 //go:generate go run ../internal/doc/main.go -output=../docs/data/data-raw.yaml
