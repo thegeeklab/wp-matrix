@@ -7,6 +7,7 @@ require (
 	github.com/rs/zerolog v1.34.0
 	github.com/stretchr/testify v1.10.0
 	github.com/thegeeklab/wp-plugin-go/v4 v4.1.2
+	github.com/thegeeklab/wp-plugin-go/v6 v6.0.0
 	github.com/urfave/cli/v2 v2.27.6
 	maunium.net/go/mautrix v0.23.3
 )
@@ -37,6 +38,7 @@ require (
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/tidwall/sjson v1.2.5 // indirect
+	github.com/urfave/cli/v3 v3.1.1 // indirect
 	github.com/xrash/smetrics v0.0.0-20240521201337-686a1a2994c1 // indirect
 	github.com/yuin/goldmark v1.7.10 // indirect
 	go.mau.fi/util v0.8.6 // indirect
