@@ -9,7 +9,7 @@ package plugin
 import (
 	"fmt"
 
-	plugin_base "github.com/thegeeklab/wp-plugin-go/v4/plugin"
+	plugin_base "github.com/thegeeklab/wp-plugin-go/v6/plugin"
 	"github.com/urfave/cli/v3"
 )
 
@@ -75,35 +75,35 @@ func Flags(settings *Settings, category string) []cli.Flag {
 	return []cli.Flag{
 		&cli.StringFlag{
 			Name:        "username",
-			EnvVars:     []string{"PLUGIN_USERNAME", "MATRIX_USERNAME"},
+			Sources:     cli.EnvVars("PLUGIN_USERNAME", "MATRIX_USERNAME"),
 			Usage:       "authentication username",
 			Destination: &settings.Username,
 			Category:    category,
 		},
 		&cli.StringFlag{
 			Name:        "password",
-			EnvVars:     []string{"PLUGIN_PASSWORD", "MATRIX_PASSWORD"},
+			Sources:     cli.EnvVars("PLUGIN_PASSWORD", "MATRIX_PASSWORD"),
 			Usage:       "authentication password",
 			Destination: &settings.Password,
 			Category:    category,
 		},
 		&cli.StringFlag{
 			Name:        "userid",
-			EnvVars:     []string{"PLUGIN_USER_ID", "PLUGIN_USERID", "MATRIX_USER_ID", "MATRIX_USERID"},
+			Sources:     cli.EnvVars("PLUGIN_USER_ID", "PLUGIN_USERID", "MATRIX_USER_ID", "MATRIX_USERID"),
 			Usage:       "authentication user ID",
 			Destination: &settings.UserID,
 			Category:    category,
 		},
 		&cli.StringFlag{
 			Name:        "accesstoken",
-			EnvVars:     []string{"PLUGIN_ACCESS_TOKEN", "PLUGIN_ACCESSTOKEN", "MATRIX_ACCESS_TOKEN", "MATRIX_ACCESSTOKEN"},
+			Sources:     cli.EnvVars("PLUGIN_ACCESS_TOKEN", "PLUGIN_ACCESSTOKEN", "MATRIX_ACCESS_TOKEN", "MATRIX_ACCESSTOKEN"),
 			Usage:       "authentication access token",
 			Destination: &settings.AccessToken,
 			Category:    category,
 		},
 		&cli.StringFlag{
 			Name:        "homeserver",
-			EnvVars:     []string{"PLUGIN_HOMESERVER", "MATRIX_HOMESERVER"},
+			Sources:     cli.EnvVars("PLUGIN_HOMESERVER", "MATRIX_HOMESERVER"),
 			Usage:       "matrix home server url",
 			Value:       "https://matrix.org",
 			Destination: &settings.Homeserver,
@@ -111,14 +111,14 @@ func Flags(settings *Settings, category string) []cli.Flag {
 		},
 		&cli.StringFlag{
 			Name:        "room_id",
-			EnvVars:     []string{"PLUGIN_ROOM_ID", "PLUGIN_ROOMID", "MATRIX_ROOMID", "MATRIX_ROOM_ID"},
+			Sources:     cli.EnvVars("PLUGIN_ROOM_ID", "PLUGIN_ROOMID", "MATRIX_ROOMID", "MATRIX_ROOM_ID"),
 			Usage:       "room id to send messages to",
 			Destination: &settings.RoomID,
 			Category:    category,
 		},
 		&cli.StringFlag{
 			Name:        "template",
-			EnvVars:     []string{"PLUGIN_TEMPLATE", "MATRIX_TEMPLATE"},
+			Sources:     cli.EnvVars("PLUGIN_TEMPLATE", "MATRIX_TEMPLATE"),
 			Usage:       "golang template for the message",
 			Value:       DefaultMessageTemplate,
 			Destination: &settings.Template,
@@ -126,7 +126,7 @@ func Flags(settings *Settings, category string) []cli.Flag {
 		},
 		&cli.BoolFlag{
 			Name:        "template-unsafe",
-			EnvVars:     []string{"PLUGIN_TEMPLATE_UNSAFE", "MATRIX_TEMPLATE_UNSAFE"},
+			Sources:     cli.EnvVars("PLUGIN_TEMPLATE_UNSAFE", "MATRIX_TEMPLATE_UNSAFE"),
 			Usage:       "render raw HTML and potentially dangerous links in template",
 			Destination: &settings.TemplateUnsafe,
 			Category:    category,
