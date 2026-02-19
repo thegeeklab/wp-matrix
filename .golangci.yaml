@@ -80,6 +80,9 @@ linters:
     - wsl_v5
     - zerologlint
   settings:
+    gosec:
+      excludes:
+        - G117 # Potential exposure of secrets via JSON marshaling
     revive:
       rules:
         - name: var-naming
