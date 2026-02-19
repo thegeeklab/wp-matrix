@@ -31,9 +31,9 @@ type Plugin struct {
 // Settings for the plugin.
 type Settings struct {
 	Username       string
-	Password       string
+	Password       string //nolint:gosec
 	UserID         string
-	AccessToken    string
+	AccessToken    string //nolint:gosec
 	Homeserver     string
 	RoomID         string
 	Template       string
