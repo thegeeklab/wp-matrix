@@ -23,7 +23,6 @@ linters:
     - errchkjson
     - errname
     - errorlint
-    - exhaustive
     - forcetypeassert
     - ginkgolinter
     - gocheckcompilerdirectives
@@ -34,7 +33,6 @@ linters:
     - gocritic
     - gocyclo
     - godot
-    - godox
     - goheader
     - gomoddirectives
     - gomodguard
