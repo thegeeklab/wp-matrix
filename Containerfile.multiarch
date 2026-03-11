@@ -17,5 +17,9 @@ LABEL org.opencontainers.image.url="https://github.com/thegeeklab/wp-matrix"
 LABEL org.opencontainers.image.source="https://github.com/thegeeklab/wp-matrix"
 LABEL org.opencontainers.image.documentation="https://github.com/thegeeklab/wp-matrix"
 
+RUN apk upgrade --no-cache zlib && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /tmp/*
+
 COPY --from=build /src/dist/wp-matrix /bin/wp-matrix
 ENTRYPOINT [ "/bin/wp-matrix" ]
