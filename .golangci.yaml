@@ -98,7 +98,7 @@ linters:
       - std-error-handling
     rules:
       - linters:
-        # - goconst
+          - goconst
         path: _test\.go
     paths:
       - third_party$
