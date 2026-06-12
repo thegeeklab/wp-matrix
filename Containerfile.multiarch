@@ -17,7 +17,7 @@ LABEL org.opencontainers.image.url="https://github.com/thegeeklab/wp-matrix"
 LABEL org.opencontainers.image.source="https://github.com/thegeeklab/wp-matrix"
 LABEL org.opencontainers.image.documentation="https://github.com/thegeeklab/wp-matrix"
 
-RUN apk upgrade --no-cache zlib && \
+RUN apk upgrade --no-cache zlib libcrypto3 && \
     rm -rf /var/cache/apk/* && \
     rm -rf /tmp/*
 
