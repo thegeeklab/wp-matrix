@@ -6,7 +6,7 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.27
 	github.com/rs/zerolog v1.35.1
 	github.com/stretchr/testify v1.12.1
-	github.com/thegeeklab/wp-plugin-go/v6 v6.3.0
+	github.com/thegeeklab/wp-plugin-go/v6 v6.4.0
 	github.com/urfave/cli/v3 v3.11.0
 	maunium.net/go/mautrix v0.31.0
 )
