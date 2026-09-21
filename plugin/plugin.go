@@ -9,7 +9,7 @@ package plugin
 import (
 	"fmt"
 
-	plugin_base "github.com/thegeeklab/wp-plugin-go/v6/plugin"
+	plugin_base "github.com/thegeeklab/wp-plugin-go/v7/plugin"
 	"github.com/urfave/cli/v3"
 )
 
