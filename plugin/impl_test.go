@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	plugin_base "github.com/thegeeklab/wp-plugin-go/v6/plugin"
+	plugin_base "github.com/thegeeklab/wp-plugin-go/v7/plugin"
 )
 
 func Test_messageContent(t *testing.T) {
@@ -29,11 +29,11 @@ func Test_messageContent(t *testing.T) {
 	}
 
 	p := New(func(_ context.Context) error { return nil })
-	p.Network = plugin_base.Network{
+	network := plugin_base.Network{
 		Context: t.Context(),
 		Client:  &http.Client{},
 	}
-	p.Metadata = plugin_base.Metadata{
+	metadata := plugin_base.Metadata{
 		Curr: plugin_base.Commit{
 			Branch: "main",
 			Title:  "feat: demo commit title",
@@ -55,7 +55,7 @@ func Test_messageContent(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			p.Settings.Template = tt.template
 
-			content, err := p.CreateMessage()
+			content, err := p.CreateMessage(network, metadata)
 			assert.NoError(t, err)
 			assert.Equal(t, tt.want, content)
 		})
