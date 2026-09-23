@@ -47,10 +47,7 @@ properties:
       to the template and all fields can be referenced. To extend the functionality,
       [sprig functions](https://masterminds.github.io/sprig/) can also be used.
     type: string
-    defaultValue: |
-      Status: **{{ .Pipeline.Status }}**
-      Build: [{{ .Repository.Slug }}]({{ .Pipeline.URL }}){{ if .Curr.Branch }} ({{ .Curr.Branch }}){{ end }} by {{ .Curr.Author.Name }}
-      Message: {{ .Curr.Title }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}
+    defaultValue: "\nStatus: **{{ .Pipeline.Status }}**\nBuild: [{{ .Repository.Slug }}]({{ .Pipeline.URL }}){{ if .Curr.Branch }} ({{ .Curr.Branch }}){{ end }} by {{ .Curr.Author.Name }}\nMessage: {{ .Curr.Title }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}\n"
     required: false
 
   - name: template_unsafe
