@@ -13,7 +13,8 @@ import (
 
 	"github.com/rs/zerolog/log"
 	"github.com/thegeeklab/wp-matrix/matrix"
-	plugin_template "github.com/thegeeklab/wp-plugin-go/v6/template"
+	plugin_base "github.com/thegeeklab/wp-plugin-go/v7/plugin"
+	plugin_template "github.com/thegeeklab/wp-plugin-go/v7/template"
 )
 
 var ErrAuthSourceNotSet = errors.New("either username and password or userid and accesstoken are required")
@@ -42,13 +43,23 @@ func (p *Plugin) Validate() error {
 
 // Execute provides the implementation of the plugin.
 func (p *Plugin) Execute() error {
-	msg, err := p.CreateMessage()
+	network, err := p.GetNetwork()
+	if err != nil {
+		return fmt.Errorf("error while getting network configuration: %w", err)
+	}
+
+	metadata, err := p.GetMetadata()
+	if err != nil {
+		return fmt.Errorf("error while getting metadata: %w", err)
+	}
+
+	msg, err := p.CreateMessage(network, metadata)
 	if err != nil {
 		return fmt.Errorf("failed to create message: %w", err)
 	}
 
 	client, err := matrix.NewClient(
-		p.Network.Context,
+		network.Context,
 		p.Settings.Homeserver,
 		p.Settings.RoomID,
 		p.Settings.UserID,
@@ -66,7 +77,7 @@ func (p *Plugin) Execute() error {
 		TemplateUnsafe: p.Settings.TemplateUnsafe,
 	}
 
-	if err := client.Message.Send(p.Network.Context); err != nil {
+	if err := client.Message.Send(network.Context); err != nil {
 		return fmt.Errorf("failed to send message: %w", err)
 	}
 
@@ -76,6 +87,6 @@ func (p *Plugin) Execute() error {
 }
 
 // CreateMessage generates a message string based on the plugin's template and metadata.
-func (p *Plugin) CreateMessage() (string, error) {
-	return plugin_template.RenderTrim(p.Network.Context, *p.Network.Client, p.Settings.Template, p.Metadata)
+func (p *Plugin) CreateMessage(network plugin_base.Network, metadata plugin_base.Metadata) (string, error) {
+	return plugin_template.RenderTrim(network.Context, *network.Client, p.Settings.Template, metadata)
 }
