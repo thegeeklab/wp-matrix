@@ -13,8 +13,8 @@ import (
 	"text/template"
 
 	"github.com/thegeeklab/wp-matrix/plugin"
-	plugin_docs "github.com/thegeeklab/wp-plugin-go/v7/docs"
-	plugin_template "github.com/thegeeklab/wp-plugin-go/v7/template"
+	plugin_docs "github.com/thegeeklab/wp-plugin-go/v8/docs"
+	plugin_template "github.com/thegeeklab/wp-plugin-go/v8/template"
 )
 
 const yamlDescriptionIndent = "      "
