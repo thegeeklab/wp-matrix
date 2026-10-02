@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	plugin_base "github.com/thegeeklab/wp-plugin-go/v7/plugin"
+	plugin_base "github.com/thegeeklab/wp-plugin-go/v8/plugin"
 )
 
 func Test_messageContent(t *testing.T) {
