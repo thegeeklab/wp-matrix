@@ -23,13 +23,13 @@ Build: [{{ .Repository.Slug }}]({{ .Pipeline.URL }}){{ if .Curr.Branch }} ({{ .C
 Message: {{ .Curr.Title }}{{ if .Curr.URL }} ([source]({{ .Curr.URL }})){{ end }}
 `
 
-// Plugin implements provide the plugin.
+// Plugin provides the plugin implementation.
 type Plugin struct {
 	*plugin_base.Plugin
 	Settings *Settings
 }
 
-// Settings for the plugin.
+// Settings for the Plugin.
 type Settings struct {
 	Username       string
 	Password       string
