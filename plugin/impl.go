@@ -17,6 +17,7 @@ import (
 	plugin_template "github.com/thegeeklab/wp-plugin-go/v8/template"
 )
 
+// ErrAuthSourceNotSet is returned when neither username/password nor user ID/access token are configured.
 var ErrAuthSourceNotSet = errors.New("either username and password or userid and accesstoken are required")
 
 func (p *Plugin) run(ctx context.Context) error {
