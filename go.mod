@@ -6,7 +6,7 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.27
 	github.com/rs/zerolog v1.35.1
 	github.com/stretchr/testify v1.12.1
-	github.com/thegeeklab/wp-plugin-go/v8 v8.0.4
+	github.com/thegeeklab/wp-plugin-go/v8 v8.0.5
 	github.com/urfave/cli/v3 v3.14.0
 	maunium.net/go/mautrix v0.32.0
 )
@@ -39,6 +39,6 @@ require (
 	golang.org/x/crypto v0.58.0 // indirect
 	golang.org/x/exp v0.0.0-20261014143641-f0251eb4aa3e // indirect
 	golang.org/x/net v0.62.0 // indirect
-	golang.org/x/sys v0.49.0 // indirect
+	golang.org/x/sys v0.50.0 // indirect
 	golang.org/x/text v0.43.0 // indirect
 )
